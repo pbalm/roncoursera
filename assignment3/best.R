@@ -5,17 +5,15 @@ best <- function(state, outcome) {
     ## Check that state and outcome are valid
     states = levels(as.factor(data$State))
     if (!(state %in% states)) {
-        stop("Not a valid state abbreviation, or no data for this state.")
+        stop("invalid state")
     }
     allowedOutcomes <- c("heart attack", "heart failure", "pneumonia")
     if (!(outcome %in% allowedOutcomes)) {
-        stop(c("Outcome is not one of the allowed values"))
+        stop("invalid outcome")
     }
     
     colNumbers <- c(11, 17, 23)
     colNumber <- colNumbers[match(outcome, allowedOutcomes)]
-    
-    message("This is col ", colNumber)
     
     ## Return hospital name in that state with lowest 30-day death
     ## rate
