@@ -7,14 +7,6 @@ pollutantmean <- function(directory, pollutant, id = 1:332) {
     mean(unlist(data), na.rm=TRUE)
 }
 
-## data is a list of the columns per file, of varying length
-## this method returns all this data as one single list
-onebiglist <- function(data) {
-    out <- NULL
-    sapply(data, function(x, out) out <- c(out, x), out)
-    out
-}
-
 pollutantForFile <- function(filename, pollutant) {
     # Read the file, and get the right column
     read.csv(filename)[, pollutant]
