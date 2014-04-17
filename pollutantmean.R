@@ -36,6 +36,6 @@ getSingleFilename <- function(id, directory) {
     }
 
     # generate the filename
-    paste(directory, name, ".csv", sep="")
+    paste(directory, "/", name, ".csv", sep="")
 }
 
