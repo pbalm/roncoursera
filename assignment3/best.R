@@ -3,17 +3,8 @@ best <- function(state, outcome) {
     data <- read.csv("outcome-of-care-measures.csv", colClasses = "character")
     
     ## Check that state and outcome are valid
-    states = levels(as.factor(data$State))
-    if (!(state %in% states)) {
-        stop("invalid state")
-    }
-    allowedOutcomes <- c("heart attack", "heart failure", "pneumonia")
-    if (!(outcome %in% allowedOutcomes)) {
-        stop("invalid outcome")
-    }
-    
-    colNumbers <- c(11, 17, 23)
-    colNumber <- colNumbers[match(outcome, allowedOutcomes)]
+    validateState(state, data)
+    columnNumber <- validateOutcome(outcome, data)
     
     ## Return hospital name in that state with lowest 30-day death
     ## rate
@@ -31,4 +22,23 @@ best <- function(state, outcome) {
     # Find the min of the 2nd col, get the row index and get
     # hospital name
     x[match(min(x[,2]), x[,2]), 1]
+}
+
+validateState <- function(state, data) {
+    states = levels(as.factor(data$State))
+    if (!(state %in% states)) {
+        stop("invalid state")
+    }
+}
+
+validateOutcome <- function(outcome, data) {
+    allowedOutcomes <- c("heart attack", "heart failure", "pneumonia")
+    if (!(outcome %in% allowedOutcomes)) {
+        stop("invalid outcome")
+    }
+    
+    colNumbers <- c(11, 17, 23)
+    colNumber <- colNumbers[match(outcome, allowedOutcomes)]
+    # return column number for this outcome
+    colNumber
 }
